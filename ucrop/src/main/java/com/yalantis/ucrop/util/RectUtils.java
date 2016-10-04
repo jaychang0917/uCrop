@@ -1,8 +1,11 @@
 package com.yalantis.ucrop.util;
 
 import android.graphics.RectF;
+import android.view.MotionEvent;
 
 public class RectUtils {
+
+    private static final int CORNER_EDGE_TOUCH_OFFSET = 45;
 
     /**
      * Gets a float array of the 2D coordinates representing a rectangles
@@ -67,6 +70,15 @@ public class RectUtils {
         }
         r.sort();
         return r;
+    }
+
+    public static boolean isTouchInRect(MotionEvent ev, RectF rectF) {
+        float motionX = ev.getRawX();
+        float motionY = ev.getRawY();
+        return motionX >= rectF.left + CORNER_EDGE_TOUCH_OFFSET
+          && motionX <= (rectF.left + rectF.width() - CORNER_EDGE_TOUCH_OFFSET)
+          && motionY >= rectF.top + CORNER_EDGE_TOUCH_OFFSET
+          && motionY <= (rectF.top + rectF.height() + CORNER_EDGE_TOUCH_OFFSET);
     }
 
 }

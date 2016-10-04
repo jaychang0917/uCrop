@@ -272,8 +272,9 @@ public class OverlayView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (mCropViewRect.isEmpty() || !mIsFreestyleCropEnabled) return false;
-
+        if (mCropViewRect.isEmpty() || !mIsFreestyleCropEnabled || RectUtils.isTouchInRect(event, mCropViewRect)) {
+            return false;
+        }
         float x = event.getX();
         float y = event.getY();
 
